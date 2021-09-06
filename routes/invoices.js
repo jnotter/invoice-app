@@ -24,8 +24,9 @@ router.post('/new', async(req, res) => {
 
 router.post('/', catchAsync(async(req, res) => {
     const client = await Client.find({name: req.body.invoice.name});
-    const invoice = new Invoice(req.body.invoice)
-    details = invoice.details
+    const invoice = new Invoice(req.body.invoice);
+    invoice.clientId = client[0]._id;
+    details = invoice.details;
     let total = 0;
     for (let i = 0; i < details.rate.length; i++) {
         const subtotal = details.quantity[i] * details.rate[i];
