@@ -1,0 +1,28 @@
+<% layout('layouts/boilerplate') %> 
+
+        <h1 class="mb-3">Clients</h1>
+
+    <ul style="padding-left: 0;">
+        <% for (let client of clients) { %>
+
+            <div class="card mb-3">
+                <div class="row d-flex align-items-center justify-content-between">
+                    <div class="col-8">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= client.name %> 
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex justify-content-end">
+                        <a href="/clients/<%= client._id %>/edit" class="btn btn-primary mx-1">Edit</a>
+                        <a href="/clients/<%= client._id %>" class="btn btn-primary mx-1">View Invoices</a>
+                    </div>
+                </div>
+            </div>
+            <% } %> 
+    </ul>
+
+    <div class="d-flex">
+        <a href="/clients/new" class="btn btn-primary ms-auto">Add Client</a>
+    </div>

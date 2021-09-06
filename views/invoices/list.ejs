@@ -1,0 +1,24 @@
+<%- layout('layouts/boilerplate') %> 
+
+<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Client</th>
+        <th scope="col">Invoice #</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Due Date</th>
+        <th scope="col">Paid</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% for (let invoice of invoices) { %>   
+            <tr>
+              <th scope="row"><%= invoice.name %> </th>
+              <td><%= invoice.invoiceNumber %></td>
+              <td><%= invoice.details.total %></td>
+              <td><%= new Date(invoice.dueDate).toDateString() %></td>
+              <td></td>
+            </tr>
+            <% } %>
+    </tbody>
+  </table>

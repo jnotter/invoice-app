@@ -1,0 +1,37 @@
+<% layout('layouts/boilerplate') %> 
+<div class="row">
+    <h1 class="text-center">Edit Client</h1>
+    <div class="col-6 offset-3">
+        <form action="/clients/<%= clients._id %>?_method=PUT " method="post" novalidate class="validated-form">
+            <div class="mb-3">
+                <label class="form-label" for="name">Name</label>
+                <input class="form-control" type="text" name="client[name]]" id="name" value="<%= clients.name %>" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="address">Address</label>
+                <input class="form-control" type="text" name="client[address]" id="address" value="<%= clients.address %>" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="city">City</label>
+                <input class="form-control" type="text" name="client[city]" id="city" value="<%= clients.city %>" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="province">Province</label>
+                <input class="form-control" type="text" name="client[province]" id="province" value="<%= clients.province %>" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="number">Number</label>
+                <input class="form-control" type="text" name="client[number]" id="number" value="<%= clients.number %>" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="email">Email</label>
+                <input class="form-control" type="email" name="client[email]" id="email" value="<%= clients.email %>" required>
+            </div>
+            <div class="mb-3 d-flex justify-content-between">
+
+                <button class="btn btn-success">Update Client</button>
+                <a href="/clients" class="btn btn-primary ms-auto">Back To Clients</a>
+            </div>
+        </form>
+    </div>
+</div>

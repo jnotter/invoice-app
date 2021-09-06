@@ -1,0 +1,49 @@
+<% layout('layouts/boilerplate') %> 
+    <div class="row d-flex justify-content-between">
+        
+        <div class="mb-3 col-4">
+            
+                <h4><%= clients.name %> </h4>
+                <p class="mb-0"><%= clients.address %> </p>
+                <p class="mb-0"><%= clients.city %>, <%= clients.province %></p>
+                <p class="mb-0"><%= clients.email %> </p>
+                <p class="mb-0"><%= clients.number %> </p>
+        </div>
+        <div class="col-2">
+            <h5>Issue Date</h5>
+            <p><%= new Date(invoice.issueDate).toDateString() %> </p>
+        </div>
+        <div class="col-2">
+            <h5>Due Date</h5>
+            <p><%= new Date(invoice.dueDate).toDateString() %> </p>
+        </div>
+        <div class="col-2">
+            <h5>Invoice Number</h5>
+            <p><%= invoice.invoiceNumber %> </p> 
+        </div>
+    </div>
+
+    <table class="table table-striped" id="table">
+        <thead>
+          <tr>
+            <th scope="col" class="col-5">Description</th>
+            <th scope="col" class="col-2">Quantity</th>
+            <th scope="col" class="col-2">Rate</th>
+            <th scope="col" class="col-2 text-end">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% const arr = invoice.details.rate %> 
+            <% for (let i = 0; i < arr.length; i++) { %> 
+          <tr>
+            <td><%= invoice.details.description[i] %> </td>
+            <td><%= invoice.details.quantity[i] %> </td>
+            <td><%= invoice.details.rate[i] %> </td>
+            <td class="col-2 text-end">$<%= invoice.details.quantity[i] * invoice.details.rate[i] %> %> </td>
+          </tr>
+          <% } %> 
+        </tbody>
+    </table>
+    <div class="row">
+        <p id="final">$</p>
+    </div>
