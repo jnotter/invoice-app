@@ -13,3 +13,4 @@ To do:
 - ability to email invoices
 - server side validation
 - authentication
+- error handling
