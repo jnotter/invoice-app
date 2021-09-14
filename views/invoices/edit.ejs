@@ -1,0 +1,80 @@
+<% layout('layouts/boilerplate') %> 
+
+<div class="row">
+    <h1 class="text-center">Edit Invoice</h1>
+    <div class="col-6 offset-3"></div>
+<form action="/clients/<%= clients._id %>/invoice/<%= invoice._id %>?_method=PUT" method="post" novalidate class="validated-form">
+    <div class="row d-flex justify-content-between">
+        
+        <div class="mb-3 col-3">
+            
+            <h4><%= clients.name %> </h4>
+            <p class="mb-0"><%= clients.address %> </p>
+            <p class="mb-0"><%= clients.city %>, <%= clients.province %></p>
+            <p class="mb-0"><%= clients.email %> </p>
+            <p class="mb-0"><%= clients.number %> </p>
+              <!-- <a href="/clients/new" class="btn btn-primary mt-3">Add Client</a> -->
+        </div>
+        <div class="col-2">
+
+            <label class="form-label" for="issueDate">Issue Date</label>
+            <input class="form-control" type="date" name="invoice[issueDate]" id="issueDate" required value="<%= new Date(invoice.issueDate).toISOString().substring(0,10) %>">
+        </div>
+        <div class="col-2">
+            <label class="form-label" for="dueDate">Due Date</label>
+            <input class="form-control" type="date" name="invoice[dueDate]" id="dueDate" required value="<%= new Date(invoice.dueDate).toISOString().substring(0,10) %>">
+        </div>
+        <div class="col-2">
+            <label class="form-label" for="invoiceNumber">Invoice Number</label>
+            <input class="form-control" type="text" name="invoice[invoiceNumber]" id="invoiceNumber" required value="<%= invoice.invoiceNumber %> "> 
+        </div>
+    </div>
+
+    <table class="table table-striped" id="table">
+        <thead>
+          <tr>
+            <th scope="col" class="col-5">Description</th>
+            <th scope="col" class="col-2">Quantity</th>
+            <th scope="col" class="col-2">Rate</th>
+            <th scope="col">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% const arr = invoice.details.rate %>
+          <% for (let i = 0; i < arr.length; i++) { %> 
+          <tr id="row">
+            <th><input class="form-control col-5" type="text" name="invoice[details][description]" id="invoiceDescription" required placeholder="Description" value="<%= invoice.details.description[i] %>"></th>
+            <td><input class="form-control col-2" type="text" name="invoice[details][quantity]" id="<%= `invoiceQuantity${i}` %>"  required value="<%= invoice.details.quantity[i] %>"></td>
+            <td><input class="form-control col-2" type="text" name="invoice[details][rate]" id="<%= `invoiceRate${i}` %>"  onkeyup="getInfo(this)" required value="<%= invoice.details.rate[i] %>"></td>
+            <td class="col-3 text-end" id="<%= `invoiceTotal${i}` %>" onload="getInfo(this)"><%= parseFloat(invoice.details.quantity[i] * invoice.details.rate[i]).toFixed(2) %> </td>
+          </tr>
+          <% } %> 
+          <tr>
+              
+          </tr>
+        </tbody>
+    </table>
+    <div class="row justify-content-end">
+      <p class="text-end col-1 px-2 mb-0"><strong>Subtotal: </strong></p>
+      
+      <p id="subtotal" class="text-end px-3 mb-0 col-2">$<%= parseFloat(invoice.details.total).toFixed(2) %> </p>
+      <% const subtotal = parseFloat(invoice.details.total).toFixed(2) %> 
+  </div>
+  <div class="d-flex justify-content-end">
+      <div class="row col-3 border-bottom mb-1">
+          <p class="text-end col-4 px-2">HST:</p>
+          <% const tax = parseFloat(subtotal * .13).toFixed(2) %> 
+          <p class="text-end px-3 mb-0 col-8" id='tax'><%= invoice.details.tax %></p>
+      </div>
+  </div>
+  <div class="row justify-content-end">
+      <h4 class="text-end col-1 px-2">Total:</h4>
+      <% const total = parseFloat(subtotal) + parseFloat(tax)  %> 
+      <h5 class="text-end px-3 pt-1 mb-0 col-2" id="final">$<%= invoice.details.finalAmount %></h5>
+  </div>
+    <button type="button" class="btn btn-primary col-1" onclick="addRow()">Add</button>
+      <div class="row d-flex justify-content-end">
+          <button type="submit" class="btn btn-primary col-1">Update</button>
+      </div>
+</form>
+</div>

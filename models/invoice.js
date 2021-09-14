@@ -11,7 +11,9 @@ const invoiceSchema = new Schema({
         description: [String],
         quantity: [Number],
         rate: [Number],
-        total: Number
+        total: Number,
+        tax: Number,
+        finalAmount: Number
     }
 
 })

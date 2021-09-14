@@ -11,7 +11,7 @@
                 <option value="<%= client.name %>"><%= client.name %> </option>
                 <% } %> 
               </select>
-              <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#addClient">
                 Add a client
               </button>
               <!-- <a href="/clients/new" class="btn btn-primary mt-3">Add Client</a> -->
@@ -59,8 +59,9 @@
           <button type="submit" class="btn btn-primary col-1">Save</button>
       </div>
 </form>
+<!-- Pop-up for when a new client needs to be added -->
 
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="addClient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">

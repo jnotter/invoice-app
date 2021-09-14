@@ -2,7 +2,7 @@
 <div class="row">
     <h1 class="text-center">Edit Client</h1>
     <div class="col-6 offset-3">
-        <form action="/clients/<%= clients._id %>?_method=PUT " method="post" novalidate class="validated-form">
+        <form action="/clients/<%= clients._id %>?_method=PUT" method="post" novalidate class="validated-form">
             <div class="mb-3">
                 <label class="form-label" for="name">Name</label>
                 <input class="form-control" type="text" name="client[name]]" id="name" value="<%= clients.name %>" required>

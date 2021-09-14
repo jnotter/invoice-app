@@ -33,27 +33,23 @@ router.post('/', catchAsync(async(req, res) => {
         total += subtotal
         
     }
+    const tax = total * .13
+    const finalAmount = total + tax
 
-    details.total = total
+    details.total = total;
+    details.tax = tax;
+    details.finalAmount = finalAmount;
     client[0].invoices.push(invoice);
     
-    // await Client.findByIdAndUpdate(id, { $push: { invoices: invoice._id}}, { new: true })
-    // if (!Array.isArray(client.invoices)) {
-    //     client.invoices = [];
-    // }
-    // if (client) {
-    // client.invoices.push(invoice._id)
-    // console.log(invoice)
-    // console.log(client.invoices)
     await invoice.save();
-    // await client.markModified('invoices')
+
     await client[0].save();
     res.redirect('/invoices')
-    // } else {
-    //     await invoice.save
-    //     res.redirect('/invoices')
-    // }
+
 }))
+
+
+
 
 
 

@@ -44,6 +44,7 @@
           <% } %> 
         </tbody>
     </table>
+    <!-- Total -->
     <div class="row justify-content-end">
         <p class="text-end col-1 px-2 mb-0"><strong>Subtotal: </strong></p>
         <% const subtotal = parseFloat(invoice.details.total).toFixed(2) %> 
@@ -59,5 +60,46 @@
     <div class="row justify-content-end">
         <h4 class="text-end col-1 px-2">Total:</h4>
         <% const total = parseFloat(subtotal) + parseFloat(tax)  %> 
-        <h5 class="text-end px-3 pt-1 mb-0 col-2">$<%= total.toFixed(2) %></>
+        <h5 class="text-end px-3 pt-1 mb-0 col-2">$<%= total.toFixed(2) %></h5>
     </div>
+    <div class="row justify-content-end mt-3">
+        <div class="col-2 justify-item-end">
+            <form action="/clients/<%= clients._id %>/invoice/<%= invoice.id %>/generate" method="get">
+                <button class="btn btn-primary">Save As PDF</button>
+              </form>
+        </div>
+        <div class="col-1">
+            <a href="/clients/<%= clients._id %>/invoice/<%= invoice.id %>/edit " class="btn btn-primary w-100">Edit</a>
+        </div>
+        <div class="col-1">
+            <button type="button" class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#deleteInvoice">
+                Delete
+              </button>
+
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteInvoice" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+    
+                <div class="col-8 offset-2">
+                    <p>Are you sure you want to delete this invoice?</p>
+                </div>
+            </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <form action="/clients/<%= clients._id %>/invoice/<%= invoice.id %>?_method=DELETE" method="post">
+                <button class="btn btn-primary">Delete</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
