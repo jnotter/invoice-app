@@ -1,115 +1,226 @@
-<% layout('layouts/boilerplate') %> 
+<% layout('layouts/boilerplate') %>
 
 <form action="/invoices" method="post" novalidate class="validated-form">
-    <div class="row d-flex justify-content-between">
-        
-        <div class="mb-3 col-4">
-            <label class="form-label" for="name">Client</label>
-            <select class="form-select" aria-label="Default select example" name="invoice[name]">
-                <option selected>Choose A Client</option>
-                <% for (let client of clients) { %> 
-                <option value="<%= client.name %>"><%= client.name %> </option>
-                <% } %> 
-              </select>
-              <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#addClient">
-                Add a client
-              </button>
-              <!-- <a href="/clients/new" class="btn btn-primary mt-3">Add Client</a> -->
-        </div>
-        <div class="col-2">
-            <label class="form-label" for="issueDate">Issue Date</label>
-            <input class="form-control" type="date" name="invoice[issueDate]" id="issueDate" required>
-        </div>
-        <div class="col-2">
-            <label class="form-label" for="dueDate">Due Date</label>
-            <input class="form-control" type="date" name="invoice[dueDate]" id="dueDate" required>
-        </div>
-        <div class="col-2">
-            <label class="form-label" for="invoiceNumber">Invoice Number</label>
-            <input class="form-control" type="text" name="invoice[invoiceNumber]" id="invoiceNumber" required value="<%= invoiceNumber %> "> 
-        </div>
+  <div class="row d-flex justify-content-between">
+    <div class="mb-3 col-4">
+      <label class="form-label" for="name">Client</label>
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        name="invoice[name]"
+      >
+        <option selected value="">Choose A Client</option>
+        <% for (let client of clients) { %>
+        <option value="<%= client.name %>"><%= client.name %></option>
+        <% } %>
+      </select>
+      <button
+        type="button"
+        class="btn btn-primary mt-3"
+        data-bs-toggle="modal"
+        data-bs-target="#addClient"
+      >
+        Add a client
+      </button>
+      <!-- <a href="/clients/new" class="btn btn-primary mt-3">Add Client</a> -->
     </div>
+    <div class="col-2">
+      <label class="form-label" for="issueDate">Issue Date</label>
+      <input
+        class="form-control"
+        type="date"
+        name="invoice[issueDate]"
+        id="issueDate"
+        required
+      />
+    </div>
+    <div class="col-2">
+      <label class="form-label" for="dueDate">Due Date</label>
+      <input
+        class="form-control"
+        type="date"
+        name="invoice[dueDate]"
+        id="dueDate"
+        required
+      />
+    </div>
+    <div class="col-2">
+      <label class="form-label" for="invoiceNumber">Invoice Number</label>
+      <input
+        class="form-control"
+        type="text"
+        name="invoice[invoiceNumber]"
+        id="invoiceNumber"
+        required
+        value="<%= invoiceNumber %> "
+      />
+    </div>
+  </div>
 
-    <table class="table table-striped" id="table">
-        <thead>
-          <tr>
-            <th scope="col" class="col-5">Description</th>
-            <th scope="col" class="col-2">Quantity</th>
-            <th scope="col" class="col-2">Rate</th>
-            <th scope="col">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr id="row">
-            <th><input class="form-control col-5" type="text" name="invoice[details][description]" id="invoiceDescription" required placeholder="Description"></th>
-            <td><input class="form-control col-2" type="text" name="invoice[details][quantity]" id="invoiceQuantity" required></td>
-            <td><input class="form-control col-2" type="text" name="invoice[details][rate]" id="invoiceRate" onkeyup="getInfo(this)" required></td>
-            <td class="col-3 text-end" id="invoiceTotal0" onclick="getInfo(this)"></td>
-          </tr>
-          <tr>
-              
-          </tr>
-        </tbody>
-    </table>
-    <div class="row">
-        <p id="final">$</p>
-    </div>
-    <button type="button" class="btn btn-primary col-1" onclick="addRow()">Add</button>
-      <div class="row d-flex justify-content-end">
-          <button type="submit" class="btn btn-primary col-1">Save</button>
-      </div>
+  <table class="table table-striped" id="table">
+    <thead>
+      <tr>
+        <th scope="col" class="col-5">Description</th>
+        <th scope="col" class="col-2">Quantity</th>
+        <th scope="col" class="col-2">Rate</th>
+        <th scope="col">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr id="row">
+        <th>
+          <input
+            class="form-control col-5"
+            type="text"
+            name="invoice[details][description]"
+            id="invoiceDescription"
+            required
+            placeholder="Description"
+          />
+        </th>
+        <td>
+          <input
+            class="form-control col-2"
+            type="text"
+            name="invoice[details][quantity]"
+            id="invoiceQuantity"
+            required
+          />
+        </td>
+        <td>
+          <input
+            class="form-control col-2"
+            type="text"
+            name="invoice[details][rate]"
+            id="invoiceRate"
+            onkeyup="getInfo(this)"
+            required
+          />
+        </td>
+        <td
+          class="col-3 text-end"
+          id="invoiceTotal0"
+          onclick="getInfo(this)"
+        ></td>
+      </tr>
+      <tr></tr>
+    </tbody>
+  </table>
+  <div class="row">
+    <p id="final">$</p>
+  </div>
+  <button type="button" class="btn btn-primary col-1" onclick="addRow()">
+    Add
+  </button>
+  <div class="row d-flex justify-content-end">
+    <button type="submit" class="btn btn-primary col-1">Save</button>
+  </div>
 </form>
 <!-- Pop-up for when a new client needs to be added -->
 
-<div class="modal fade" id="addClient" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Add A Client</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div
+  class="modal fade"
+  id="addClient"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add A Client</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-8 offset-2">
+            <form
+              action="/invoices/new"
+              method="post"
+              novalidate
+              class="validated-form"
+            >
+              <div class="mb-3">
+                <label class="form-label" for="name">Name</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="client[name]]"
+                  id="name"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="address">Address</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="client[address]"
+                  id="address"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="city">City</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="client[city]"
+                  id="city"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="province">Province</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="client[province]"
+                  id="province"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="number">Number</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  name="client[number]"
+                  id="number"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="email">Email</label>
+                <input
+                  class="form-control"
+                  type="email"
+                  name="client[email]"
+                  id="email"
+                  required
+                />
+              </div>
+              <div class="mb-3 d-flex justify-content-between">
+                <button class="btn btn-success">Add Client</button>
+                <a href="/clients" class="btn btn-primary ms-auto"
+                  >Back To Clients</a
+                >
+              </div>
+            </form>
+          </div>
         </div>
-        <div class="modal-body">
-            <div class="row">
-
-            <div class="col-8 offset-2">
-                <form action="/invoices/new" method="post" novalidate class="validated-form">
-                    <div class="mb-3">
-                        <label class="form-label" for="name">Name</label>
-                        <input class="form-control" type="text" name="client[name]]" id="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="address">Address</label>
-                        <input class="form-control" type="text" name="client[address]" id="address" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="city">City</label>
-                        <input class="form-control" type="text" name="client[city]" id="city" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="province">Province</label>
-                        <input class="form-control" type="text" name="client[province]" id="province" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="number">Number</label>
-                        <input class="form-control" type="text" name="client[number]" id="number" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label" for="email">Email</label>
-                        <input class="form-control" type="email" name="client[email]" id="email" required>
-                    </div>
-                    <div class="mb-3 d-flex justify-content-between">
-        
-                        <button class="btn btn-success">Add Client</button>
-                        <a href="/clients" class="btn btn-primary ms-auto">Back To Clients</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
+</div>

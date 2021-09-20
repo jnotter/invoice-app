@@ -67,33 +67,6 @@ router.delete('/:id/invoice/:invoiceId', async(req, res) => {
 
 })
 
-router.get('/:id/invoice/:invoiceId/generate', async(req, res) => {
-    const { id, invoiceId } = req.params;
-    const url = `http://localhost:3000/clients/${id}/invoice/${invoiceId}`;
-
-    const browser = await puppeteer.launch({
-        headless: true
-    });
-
-    const webPage = await browser.newPage();
-    await webPage.setViewport({ width: 1200, height: 800})
-
-    await webPage.goto(url, {
-        waitUntil: "networkidle0"
-    });
-    
-    const pdf = await webPage.pdf({
-
-        format: "Letter",
-        width: '100%'
-    });
-
-    await browser.close();
-
-    res.contentType("application/pdf");
-    res.send(pdf);
-
-})
 
 router.get('/:id/invoice/:invoiceId/edit', async(req, res) => {
     const { id, invoiceId } = req.params;

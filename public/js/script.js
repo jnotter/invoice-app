@@ -49,3 +49,15 @@ function getInfo(total) {
     subTotal.innerHTML = parseFloat(qty * rate).toFixed(2);
     finalAmount();
 }
+
+function generatePDF() {
+    const element = document.getElementById('root');
+    const opt = {
+        margin: [.5, .5],
+        jsPDF: {
+            unit: 'in'
+        }
+    }
+
+    html2pdf().set(opt).from(element).save();
+}

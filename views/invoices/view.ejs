@@ -1,72 +1,73 @@
 <% layout('layouts/boilerplate') %> 
-    <div class="row d-flex justify-content-between">
-        
-        <div class="mb-3 col-4">
-            
-                <h4><%= clients.name %> </h4>
-                <p class="mb-0"><%= clients.address %> </p>
-                <p class="mb-0"><%= clients.city %>, <%= clients.province %></p>
-                <p class="mb-0"><%= clients.email %> </p>
-                <p class="mb-0"><%= clients.number %> </p>
-        </div>
-        <div class="col-2">
-            <h5>Issue Date</h5>
-            <p><%= new Date(invoice.issueDate).toDateString() %> </p>
-        </div>
-        <div class="col-2">
-            <h5>Due Date</h5>
-            <p><%= new Date(invoice.dueDate).toDateString() %> </p>
-        </div>
-        <div class="col-2">
-            <h5>Invoice Number</h5>
-            <p><%= invoice.invoiceNumber %> </p> 
-        </div>
-    </div>
+<div id="root">
 
-    <table class="table table-striped" id="table">
-        <thead>
-          <tr>
-            <th scope="col" class="col-5">Description</th>
-            <th scope="col" class="col-2">Quantity</th>
-            <th scope="col" class="col-2">Rate</th>
-            <th scope="col" class="col-2 text-end">Total</th>
-          </tr>
-        </thead>
-        <tbody>
-            <% const arr = invoice.details.rate %> 
-            <% for (let i = 0; i < arr.length; i++) { %> 
-          <tr>
-            <td><%= invoice.details.description[i] %> </td>
-            <td><%= invoice.details.quantity[i] %> </td>
-            <td><%= invoice.details.rate[i] %> </td>
-            <td class="col-2 text-end">$<%= parseFloat(invoice.details.quantity[i] * invoice.details.rate[i]).toFixed(2) %> %> </td>
-          </tr>
-          <% } %> 
-        </tbody>
-    </table>
-    <!-- Total -->
-    <div class="row justify-content-end">
-        <p class="text-end col-1 px-2 mb-0"><strong>Subtotal: </strong></p>
-        <% const subtotal = parseFloat(invoice.details.total).toFixed(2) %> 
-        <p id="final" class="text-end px-3 mb-0 col-2">$<%= subtotal %> </p>
-    </div>
-    <div class="d-flex justify-content-end">
-        <div class="row col-3 border-bottom mb-1">
-            <p class="text-end col-4 px-2">HST:</p>
-            <% const tax = parseFloat(subtotal * .13).toFixed(2) %> 
-            <p class="text-end px-3 mb-0 col-8"><%= tax %></p>
+    <div class="row d-flex justify-content-between">
+            
+            <div class="mb-3 col-4">
+                
+                    <h4><%= clients.name %> </h4>
+                    <p class="mb-0"><%= clients.address %> </p>
+                    <p class="mb-0"><%= clients.city %>, <%= clients.province %></p>
+                    <p class="mb-0"><%= clients.email %> </p>
+                    <p class="mb-0"><%= clients.number %> </p>
+            </div>
+            <div class="col-2">
+                <h5>Issue Date</h5>
+                <p><%= new Date(invoice.issueDate).toDateString() %> </p>
+            </div>
+            <div class="col-2">
+                <h5>Due Date</h5>
+                <p><%= new Date(invoice.dueDate).toDateString() %> </p>
+            </div>
+            <div class="col-2">
+                <h5>Invoice Number</h5>
+                <p><%= invoice.invoiceNumber %> </p> 
+            </div>
         </div>
-    </div>
-    <div class="row justify-content-end">
-        <h4 class="text-end col-1 px-2">Total:</h4>
-        <% const total = parseFloat(subtotal) + parseFloat(tax)  %> 
-        <h5 class="text-end px-3 pt-1 mb-0 col-2">$<%= total.toFixed(2) %></h5>
-    </div>
+    
+        <table class="table table-striped" id="table">
+            <thead>
+              <tr>
+                <th scope="col" class="col-5">Description</th>
+                <th scope="col" class="col-2">Quantity</th>
+                <th scope="col" class="col-2">Rate</th>
+                <th scope="col" class="col-2 text-end">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% const arr = invoice.details.rate %> 
+                <% for (let i = 0; i < arr.length; i++) { %> 
+              <tr>
+                <td><%= invoice.details.description[i] %> </td>
+                <td><%= invoice.details.quantity[i] %> </td>
+                <td><%= invoice.details.rate[i] %> </td>
+                <td class="col-2 text-end">$<%= parseFloat(invoice.details.quantity[i] * invoice.details.rate[i]).toFixed(2) %> %> </td>
+              </tr>
+              <% } %> 
+            </tbody>
+        </table>
+        <!-- Total -->
+        <div class="row justify-content-end">
+            <p class="text-end col-1 px-2 mb-0"><strong>Subtotal: </strong></p>
+            <% const subtotal = parseFloat(invoice.details.total).toFixed(2) %> 
+            <p id="final" class="text-end px-3 mb-0 col-2">$<%= subtotal %> </p>
+        </div>
+        <div class="d-flex justify-content-end">
+            <div class="row col-3 border-bottom mb-1">
+                <p class="text-end col-4 px-2">HST:</p>
+                <% const tax = parseFloat(subtotal * .13).toFixed(2) %> 
+                <p class="text-end px-3 mb-0 col-8"><%= tax %></p>
+            </div>
+        </div>
+        <div class="row justify-content-end">
+            <h4 class="text-end col-1 px-2">Total:</h4>
+            <% const total = parseFloat(subtotal) + parseFloat(tax)  %> 
+            <h5 class="text-end px-3 pt-1 mb-0 col-2">$<%= total.toFixed(2) %></h5>
+        </div>
+</div>    
     <div class="row justify-content-end mt-3">
         <div class="col-2 justify-item-end">
-            <form action="/clients/<%= clients._id %>/invoice/<%= invoice.id %>/generate" method="get">
-                <button class="btn btn-primary">Save As PDF</button>
-              </form>
+                <button class="btn btn-primary" onclick="generatePDF()">Save As PDF</button>
         </div>
         <div class="col-1">
             <a href="/clients/<%= clients._id %>/invoice/<%= invoice.id %>/edit " class="btn btn-primary w-100">Edit</a>
