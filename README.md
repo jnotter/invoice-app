@@ -7,8 +7,6 @@ Currently has the ability to add clients, edit clients, create invoices and atta
 
 To do:
 
-- ability to delete invoices
-- ability to edit/update invoices
 - export invoices to pdf
 - ability to email invoices
 - server side validation
