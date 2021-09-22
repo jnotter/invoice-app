@@ -1,20 +1,22 @@
-<% layout('layouts/boilerplate') %> 
+<% layout('layouts/boilerplate') %>
 
 <div class="container">
-    <div class="row mb-3 justify-content-center">
-        <div class="col-2">
-            <a href="/invoices/new" class="btn btn-primary w-100">Create An Invoice</a>
-        </div>
-        <div class="col-2">
-            <a href="/invoices/" class="btn btn-primary w-100">View Invoices</a>
-        </div>
+  <div class="row mb-3 justify-content-center">
+    <div class="col-4 col-md-2 mb-3">
+      <a href="/invoices/new" class="btn btn-primary w-100"
+        >Create An Invoice</a
+      >
     </div>
-    <div class="row justify-content-center">
-        <div class="col-2">
-            <a href="/clients/new" class="btn btn-primary w-100">Add A Client</a>
-        </div>
-        <div class="col-2">
-            <a href="/clients" class="btn btn-primary w-100">View Clients</a>
-        </div>
+    <div class="col-4 col-md-2">
+      <a href="/invoices/" class="btn btn-primary w-100">View Invoices</a>
     </div>
+  </div>
+  <div class="row justify-content-center">
+    <div class="col-4 col-md-2 mb-3">
+      <a href="/clients/new" class="btn btn-primary w-100">Add A Client</a>
+    </div>
+    <div class="col-4 col-md-2">
+      <a href="/clients" class="btn btn-primary w-100">View Clients</a>
+    </div>
+  </div>
 </div>
