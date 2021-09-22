@@ -1,4 +1,5 @@
 # invoice-app
+
 Invoice app built with Node, mongoose and EJS
 
 Personal project to utilize my Node and mongoDB skills I have been learning.

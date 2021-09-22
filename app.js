@@ -3,17 +3,17 @@ const ejsMate = require("ejs-mate");
 const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const clients = require("./routes/clients");
 const invoices = require("./routes/invoices");
 
-mongoose.connect(
-  "mongodb+srv://admin:Facere1234@invoiceapp.yj8mo.mongodb.net/invoiceDB",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error: "));
@@ -39,6 +39,8 @@ app.get("/", (req, res) => {
   res.render("home");
 });
 
-app.listen(3000, () => {
-  console.log("Listening on port 3000");
-});
+let port = process.env.PORT;
+if (port == null || port == "") {
+  port = 8000;
+}
+app.listen(port);
