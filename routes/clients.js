@@ -36,45 +36,4 @@ router.get("/:id/edit", async (req, res) => {
   res.render("clients/edit", { clients });
 });
 
-router.get("/:id/invoice/:invoiceId", async (req, res) => {
-  const { id, invoiceId } = req.params;
-  const clients = await Client.findById(id);
-  const invoice = await Invoice.findById(invoiceId);
-  res.render("invoices/view", { clients, invoice });
-});
-
-router.delete("/:id/invoice/:invoiceId", async (req, res) => {
-  const { id, invoiceId } = req.params;
-  await Invoice.findByIdAndDelete(invoiceId);
-  res.redirect(`/clients/${id}`);
-});
-
-router.get("/:id/invoice/:invoiceId/edit", async (req, res) => {
-  const { id, invoiceId } = req.params;
-  const invoice = await Invoice.findById(invoiceId);
-  const clients = await Client.findById(id);
-
-  res.render("invoices/edit", { clients, invoice });
-});
-
-router.put("/:id/invoice/:invoiceId", async (req, res) => {
-  const { id, invoiceId } = req.params;
-
-  invoice = { ...req.body.invoice };
-  details = invoice.details;
-  let total = 0;
-  for (let i = 0; i < details.rate.length; i++) {
-    const subtotal = details.quantity[i] * details.rate[i];
-    total += subtotal;
-  }
-  const tax = total * 0.13;
-  const finalAmount = total + tax;
-
-  details.total = total;
-  details.tax = tax;
-  details.finalAmount = finalAmount;
-  await Invoice.findByIdAndUpdate(invoiceId, { ...invoice });
-  res.redirect(`/clients/${id}`);
-});
-
 module.exports = router;

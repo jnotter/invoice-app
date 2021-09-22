@@ -1,38 +1,40 @@
-<% layout('layouts/boilerplate') %> 
+<% layout('layouts/boilerplate') %>
 <div class="row mb-5">
-    <div class="col-4">
-        <h4><%= clients.name %> </h4>
-        <p class="mb-0"><%= clients.address %> </p>
-        <p class="mb-0"><%= clients.city %>, <%= clients.province %></p>
-        <p class="mb-0"><%= clients.email %> </p>
-        <p class="mb-0"><%= clients.number %> </p>
-    </div>
+  <div class="col-4">
+    <h4><%= clients.name %></h4>
+    <p class="mb-0"><%= clients.address %></p>
+    <p class="mb-0"><%= clients.city %>, <%= clients.province %></p>
+    <p class="mb-0"><%= clients.email %></p>
+    <p class="mb-0"><%= clients.number %></p>
+  </div>
 </div>
 
 <table class="table table-striped mb-5">
-    <thead>
-      <tr>
-        <th scope="col">Invoice #</th>
-        <th scope="col">Issue Date</th>
-        <th scope="col">Due Date</th>
-        <th scope="col">Amount</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <% for (let invoice of invoices) { %> 
-      <tr>
-        <td><%= invoice.invoiceNumber %> </td>
-        <td><%= new Date(invoice.issueDate).toDateString() %> </td>
-        <td><%= new Date(invoice.dueDate).toDateString() %> </td>
-        <td>$<%= parseFloat(invoice.details.finalAmount).toFixed(2) %> </td>
-        <td><a href="/clients/<%= clients._id %>/invoice/<%= invoice._id %>" class="btn btn-primary">View</a></td>
-      </tr>
-      <% } %> 
-    </tbody>
+  <thead>
+    <tr>
+      <th scope="col">Invoice #</th>
+      <th scope="col">Issue Date</th>
+      <th scope="col">Due Date</th>
+      <th scope="col">Amount</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (let invoice of invoices) { %>
+    <tr>
+      <td><%= invoice.invoiceNumber %></td>
+      <td><%= new Date(invoice.issueDate).toDateString() %></td>
+      <td><%= new Date(invoice.dueDate).toDateString() %></td>
+      <td>$<%= parseFloat(invoice.details.finalAmount).toFixed(2) %></td>
+      <td>
+        <a href="/invoices/<%= invoice._id %>" class="btn btn-primary">View</a>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
 </table>
 
 <div class="mb-3 d-flex justify-content-end">
-    <a href="/clients/:id/invoice/new" class="btn btn-primary mx-1">Create Invoice</a>
-    <a href="/clients" class="btn btn-primary mx-1">Back To Clients</a>
+  <a href="/invoices/new" class="btn btn-primary mx-1">Create Invoice</a>
+  <a href="/clients" class="btn btn-primary mx-1">Back To Clients</a>
 </div>

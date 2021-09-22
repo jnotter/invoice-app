@@ -1,26 +1,28 @@
-<%- layout('layouts/boilerplate') %> 
+<%- layout('layouts/boilerplate') %>
 
 <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">Client</th>
-        <th scope="col">Invoice #</th>
-        <th scope="col">Amount</th>
-        <th scope="col">Due Date</th>
-        <th scope="col">Paid</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-        <% for (let invoice of invoices) { %>   
-            <tr>
-              <th scope="row"><%= invoice.name %> </th>
-              <td><%= invoice.invoiceNumber %></td>
-              <td><%= invoice.details.total %></td>
-              <td><%= new Date(invoice.dueDate).toDateString() %></td>
-              <td></td>
-              <td><a href="/clients/<%= invoice.clientId %>/invoice/<%= invoice._id %>" class="btn btn-primary">View</a></td>
-            </tr>
-            <% } %>
-    </tbody>
-  </table>
+  <thead>
+    <tr>
+      <th scope="col">Client</th>
+      <th scope="col">Invoice #</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Due Date</th>
+      <th scope="col">Paid</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for (let invoice of invoices) { %>
+    <tr>
+      <th scope="row"><%= invoice.name %></th>
+      <td><%= invoice.invoiceNumber %></td>
+      <td><%= invoice.details.total %></td>
+      <td><%= new Date(invoice.dueDate).toDateString() %></td>
+      <td></td>
+      <td>
+        <a href="/invoices/<%= invoice._id %>" class="btn btn-primary">View</a>
+      </td>
+    </tr>
+    <% } %>
+  </tbody>
+</table>

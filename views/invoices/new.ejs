@@ -106,8 +106,20 @@
       <tr></tr>
     </tbody>
   </table>
-  <div class="row">
-    <p id="final">$</p>
+  <div class="row justify-content-end">
+    <p class="text-end col-1 px-2 mb-0"><strong>Subtotal: </strong></p>
+
+    <p id="subtotal" class="text-end px-3 mb-0 col-2"></p>
+  </div>
+  <div class="d-flex justify-content-end">
+    <div class="row col-3 border-bottom mb-1">
+      <p class="text-end col-4 px-2">HST:</p>
+      <p class="text-end px-3 mb-0 col-8" id="tax"></p>
+    </div>
+  </div>
+  <div class="row justify-content-end">
+    <h4 class="text-end col-1 px-2">Total:</h4>
+    <h5 class="text-end px-3 pt-1 mb-0 col-2" id="final"></h5>
   </div>
   <button type="button" class="btn btn-primary col-1" onclick="addRow()">
     Add
